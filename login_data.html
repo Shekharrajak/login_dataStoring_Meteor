@@ -1,0 +1,43 @@
+<head>
+  <title>login_data</title>
+</head>
+
+<body>
+  <h1>Login to enter your book names :</h1>
+
+  {{> loginButtons}}
+
+  <div >
+  	{{>addBookForm}}
+  	{{>board}}
+  </div>
+
+</body>
+ <template name="addBookForm">
+ 	{{#if currentUser}}
+ 		<form>
+ 			<input type="text" name="bookName">
+ 			<input type="submit" value="Add Books">
+ 		</form>
+ 	{{/if}}
+ </template>
+
+
+<template name="board">
+	<ul>
+	    {{#each book}}
+	        <li class="book {{selectedClass}}">{{name}}: {{score}}</li>
+	    {{/each}}
+	    <li>
+	    	<input type="button" class="increment" value="Give 5 Points">
+	    	<input type="button" class="decrement" value="Take 5 Points">
+	    	<input type="button" class="remove" value="Remove Player">
+    	</li>
+    	{{#if showSelectedBook}}
+		    <li>Selected Books: {{showSelectedBook.name}}</li>
+		{{/if}}
+	</ul>
+</template>
+
+
+
