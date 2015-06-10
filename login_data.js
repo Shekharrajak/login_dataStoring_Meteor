@@ -8,7 +8,7 @@ if(Meteor.isClient){
   Template.board.helpers({
     'book': function(){
       var currentUserId = Meteor.userId();
-      return BooksList.find({}, {sort: {score: -1, name: 1}});
+      return BooksList.find({createdBy:currentUserId}, {sort: {score: -1, name: 1}});
     },
     'selectedClass': function(){
       var bookId = this._id;
@@ -56,7 +56,7 @@ if(Meteor.isServer){
 
   Meteor.publish('theBooks', function(){
     var currentUserId = this.userId;
-    return BooksList.find({createdBy: currentUserId})
+    return BooksList.find({author:this.userId},{sort:{date:-1},limit:10});
   });
 
   Meteor.methods({
