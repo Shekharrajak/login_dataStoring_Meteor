@@ -19,13 +19,17 @@ if(Meteor.isClient){
     },
     'showSelectedBook': function(){
       var selectedBook = Session.get('selectedBook');
-      return BooksList.findOne(selectedBook)
+      
+        return BooksList.findOne(selectedBook)
+
+    
     }
   });
 
   Template.board.events({
     'click .book': function(){
       var bookId = this._id;
+     
       Session.set('selectedBook', bookId);
     },
     'click .increment': function(){
@@ -56,7 +60,7 @@ if(Meteor.isServer){
 
   Meteor.publish('theBooks', function(){
     var currentUserId = this.userId;
-    return BooksList.find({author:this.userId},{sort:{date:-1},limit:10});
+    return BooksList.find({createdBy:this.userId},{sort:{date:-1},limit:10});
   });
 
   Meteor.methods({
